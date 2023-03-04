@@ -10,6 +10,7 @@ unsigned int binary_to_uint(const char *b)
 {
 	unsigned int num = 0;
 	int len = 0;
+	int base_two = 1;
 
 	if (b == NULL)
 		return (0);
@@ -20,10 +21,15 @@ unsigned int binary_to_uint(const char *b)
 			return (0);
 		len++;
 	}
-
-	for (int i = 0; i < len; i++)
+ 	 
+	for (len--; len >= 0; len--)
 	{
-		num += (b[i] - '0') * (1 << (len - i - 1));
+			
+		if( b[len] == '1' )
+		{
+		num += base_two;
+		}
+        base_two *=2;
 	}
 
 	return (num);

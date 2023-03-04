@@ -8,29 +8,29 @@
  */
 unsigned int binary_to_uint(const char *b)
 {
-	unsigned int num = 0;
-	int len = 0;
-	int base_two = 1;
+	unsigned int ui;
+	int len, base_two;
 
-	if (b == NULL)
+	if (!b)
 		return (0);
 
-	/* calculate string length */
-	while (b[len] != '\0')
+	ui = 0;
+
+	for (len = 0; b[len] != '\0'; len++)
+		;
+
+	for (len--, base_two = 1; len >= 0; len--, base_two *= 2)
 	{
 		if (b[len] != '0' && b[len] != '1')
+		{
 			return (0);
-		len++;
+		}
+
+		if (b[len] & 1)
+		{
+			ui += base_two;
+		}
 	}
 
-	/* convert binary to decimal */
-	for (len--; len >= 0; len--)
-	{
-		if (b[len] == '1')
-			num += base_two;
-
-		base_two *= 2;
-	}
-
-	return (num);
+	return (ui);
 }
